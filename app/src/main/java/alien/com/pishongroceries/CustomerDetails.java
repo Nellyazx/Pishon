@@ -45,9 +45,7 @@ public class CustomerDetails extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_details);
 
-
         alertDialog = new AlertDialog.Builder(CustomerDetails.this);
-
         register = findViewById(R.id.register);
         location = findViewById(R.id.location);
         famsize = findViewById(R.id.famsize);
