@@ -147,14 +147,17 @@
         android:layout_alignTop="@+id/textView15"
         android:text="Delivery Fee" />
 
-    <android.support.v7.widget.AppCompatButton
+    <Button
         android:id="@+id/btnupdate"
-        android:layout_width="130dp"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
+        android:layout_width="226dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/delfee"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="44dp"
-        android:background="@drawable/background_gradient"
-        android:text="updateinfo" />
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button_round"
+        android:fontFamily="@font/josefin"
+        android:text="Update User"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
 </RelativeLayout>

@@ -55,8 +55,6 @@ StringRequest updateRequest;
             }
         });
 
-
-
         alertDialog = new AlertDialog.Builder(UpdateUserInfo.this);
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
@@ -136,7 +134,7 @@ StringRequest updateRequest;
     }
     public void getData()
     {
-        Toast.makeText(this, "We reached Here", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "We reached Here", Toast.LENGTH_SHORT).show();
         stringRequest = new StringRequest(Request.Method.POST, ApiService.GET_CUSTOMER_DATA_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response)

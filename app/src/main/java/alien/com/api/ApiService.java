@@ -9,6 +9,9 @@ public class ApiService
     public static final String GET_CUSTOMER_DATA_URL = BASE_URL + "getcustomerdata.php";
     public static final String UPDATE_CUSTOMER_DATA_URL = BASE_URL + "updateusers.php";
     public static final String VIEW_ALL_PENDING_ORDERS = BASE_URL + "updateusers.php";
+    public static final String ADD_CATEGORY = BASE_URL + "category.php";
+    public static final String DELETE_CATEGORY = BASE_URL + "deletecategory.php";
+    public static final String VIEW_CATEGORY = BASE_URL + "getcategories.php";
 
 
 }

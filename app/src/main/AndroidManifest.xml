@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="alien.com.products.AddProducts"></activity>
-        <activity android:name="alien.com.products.AddCategory" />
+        <activity android:name="alien.com.category.EditCategory" />
+        <activity android:name="alien.com.category.ViewCategory" />
+        <activity android:name="alien.com.products.ViewProducts" />
+        <activity android:name="alien.com.products.AddProducts" />
+        <activity android:name="alien.com.category.AddCategory" />
         <activity android:name="alien.com.start.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

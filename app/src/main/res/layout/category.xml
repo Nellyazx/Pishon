@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextColor="@android:color/white"
+        android:background="?attr/colorPrimary"
+        app:layout_collapseMode="pin"
+        />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="15dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/categoryImage"
+            android:src="@drawable/grocerie"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Category Name"
+            android:id="@+id/categoryName"
+            android:layout_toRightOf="@+id/categoryImage"
+            android:textSize="20sp"
+            android:fontFamily="@font/semibold"
+            android:textStyle="bold"
+            />
+        <Button
+            android:id="@+id/editcategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/categoryName"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/categoryImage"
+            android:background="@drawable/button_round"
+            android:fontFamily="@font/josefin"
+            android:text="Edit"
+            android:layout_marginRight="20dp"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+        <Button
+            android:id="@+id/deletecategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/categoryName"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/editcategory"
+            android:background="@drawable/button_round"
+            android:fontFamily="@font/josefin"
+            android:text="Delete"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -3,25 +3,22 @@ package alien.com.dashboard;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import alien.com.pishongroceries.CustomerDetails;
 import alien.com.pishongroceries.R;
 import alien.com.pishongroceries.RegisterCustomer;
-import alien.com.products.AddCategory;
+import alien.com.category.AddCategory;
 import alien.com.viewcustomers.AllCustomersFragment;
-import alien.com.viewcustomers.UpdateUserInfo;
-import alien.com.viewcustomers.ViewCustomers;
 import alien.com.vieworders.ViewDeliveredOrders;
 import alien.com.vieworders.ViewPendingOrders;
 
 public class Dashboard extends AppCompatActivity
 {
     RelativeLayout addcustomer,showcustomer,viewpending,viewdelivered,addcategory,addproducts;
-
+    int count;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -114,5 +111,23 @@ public class Dashboard extends AppCompatActivity
     public void addProducts()
     {
         startActivity(new Intent(Dashboard.this, AddCategory.class));
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (count == 0) {
+                Toast.makeText(Dashboard.this, "Click again to exit application ", Toast.LENGTH_SHORT).show();
+                count++;
+            } else {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        }
+        return true;
     }
 }
