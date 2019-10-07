@@ -142,7 +142,7 @@ StringRequest updateRequest;
                 try
                 {
                     JSONArray jsonArray = new JSONArray(response);
-                    Log.e("Data",response);
+                    //Log.e("Data",response);
                     JSONObject jsonObject = jsonArray.getJSONObject(0);
                     getname = jsonObject.getString("name");
                     getmail = jsonObject.getString("email");

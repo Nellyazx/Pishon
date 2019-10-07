@@ -12,6 +12,7 @@ public class ApiService
     public static final String ADD_CATEGORY = BASE_URL + "category.php";
     public static final String DELETE_CATEGORY = BASE_URL + "deletecategory.php";
     public static final String VIEW_CATEGORY = BASE_URL + "getcategories.php";
+    public static final String imgUrl = "http://theopportunity.co.ke/pishon/images/";
 
 
 }

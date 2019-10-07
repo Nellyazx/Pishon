@@ -2,16 +2,18 @@ package alien.com.model;
 
 public class Category
 {
-    public int images;
+
+    public String Id;
     public String categoryName;
 
-    public Category(String categoryName)
+    public Category(String categoryName,String Id)
     {
-        this.images = images;
+        this.Id = Id;
         this.categoryName = categoryName;
     }
-    public int getImages() {
-        return images;
+
+    public String getId() {
+        return Id;
     }
 
     public String getCategoryName() {

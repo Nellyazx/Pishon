@@ -5,12 +5,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,6 +63,7 @@ public class AddCategory extends AppCompatActivity
         setContentView(R.layout.activity_add_category);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Add Categories");
+        setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
         progressDialog = new ProgressDialog(this);
         alertDialog = new AlertDialog.Builder(AddCategory.this);
@@ -69,6 +74,7 @@ public class AddCategory extends AppCompatActivity
                 startActivity(new Intent(getApplicationContext(), Dashboard.class));
             }
         });
+
         addImage = findViewById(R.id.addImage);
         selectImage = findViewById(R.id.selectImage);
         categoryName = findViewById(R.id.categoryName);
@@ -88,7 +94,6 @@ public class AddCategory extends AppCompatActivity
             public void onClick(View view)
             {
                 categoryname = categoryName.getText().toString();
-
                 addCategory();
             }
         });
@@ -209,6 +214,26 @@ public class AddCategory extends AppCompatActivity
             }
         }
         return true;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.categorymenu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case R.id.viewcategory:
+                //  navigate to home stock list page
+                Intent viewCategory = new Intent(getApplicationContext(), ViewCategory.class);
+                startActivity(viewCategory);
+                return true;
+
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

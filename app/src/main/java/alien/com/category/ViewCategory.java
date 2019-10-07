@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -33,10 +34,10 @@ import alien.com.viewcustomers.CustomersAdapter;
 
 public class ViewCategory extends AppCompatActivity
 {
-    SwipeRefreshLayout swipeRefreshLayout;
-    RecyclerView recyclerView;
-    List<Category> categoryList;
-    CategoryAdapter adapter;
+     SwipeRefreshLayout swipeRefreshLayout;
+     RecyclerView recyclerView;
+     List<Category> categoryList;
+     CategoryAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -79,28 +80,45 @@ public class ViewCategory extends AppCompatActivity
     public void getData()
     {
         swipeRefreshLayout.setRefreshing(true);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, ApiService.VIEW_ALL_CUSTOMERS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, ApiService.VIEW_CATEGORY, new Response.Listener<String>() {
             @Override
             public void onResponse(String response)
             {
-                try
-                {
+                try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("");
+                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+                   categoryList.clear();
                     for(int i=0;i<jsonArray.length();i++)
                     {
                         JSONObject myObject = jsonArray.getJSONObject(i);
                         Category categories = new Category
-                        (myObject.getString("categoryname"));
+                                (myObject.getString("category_name"),myObject.getString("id"));
+
                         categoryList.add(categories);
+
+                        swipeRefreshLayout.setRefreshing(false);
+                        adapter = new CategoryAdapter(ViewCategory.this, categoryList);
+                        recyclerView.setAdapter(adapter);
+
                     }
-                    swipeRefreshLayout.setRefreshing(false);
-                    adapter = new CategoryAdapter(getApplicationContext(),categoryList);
-                    recyclerView.setAdapter(adapter);
+
+
+//                    for(int i=0;i<jsonArray.length();i++)
+//                    {
+//                        JSONObject myObject = jsonArray.getJSONObject(i);
+//                        Category categories = new Category
+//                        (myObject.getString("category_name"));
+//                        categoryList.add(categories);
+//                    }
+//                    swipeRefreshLayout.setRefreshing(false);
+//                    adapter = new CategoryAdapter(getApplicationContext(),categoryList);
+//                    recyclerView.setAdapter(adapter);
                 }
 
 
                 catch (JSONException e) {
+                    Toast.makeText(ViewCategory.this, "Nothing Found "+e, Toast.LENGTH_SHORT).show();
+                    Log.e("Nothing",e.toString());
                     e.printStackTrace();
                 }
 
@@ -111,7 +129,7 @@ public class ViewCategory extends AppCompatActivity
             public void onErrorResponse(VolleyError error)
             {
                 swipeRefreshLayout.setRefreshing(false);
-                //   Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+                   Toast.makeText(ViewCategory.this, ""+error, Toast.LENGTH_SHORT).show();
                 Log.e("RES", String.valueOf(error));
             }
         });

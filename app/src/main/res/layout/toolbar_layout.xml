@@ -9,10 +9,10 @@
     android:focusableInTouchMode="true"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <EditText android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/enterCustomerName"
-        android:hint="Search Customer here"
-        />
+<!--    <EditText android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/enterCustomerName"-->
+<!--        android:hint="Search Customer here"-->
+<!--        />-->
 
 </android.support.v7.widget.Toolbar>

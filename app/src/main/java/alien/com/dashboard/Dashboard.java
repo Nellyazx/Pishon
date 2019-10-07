@@ -1,13 +1,17 @@
 package alien.com.dashboard;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import alien.com.category.ViewCategory;
 import alien.com.pishongroceries.R;
 import alien.com.pishongroceries.RegisterCustomer;
 import alien.com.category.AddCategory;
@@ -26,7 +30,8 @@ public class Dashboard extends AppCompatActivity
         setContentView(R.layout.activity_dashboard);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Dashboard");
-
+        //setSupportActionBar(toolbar);
+       // ActionBar actionBar = getSupportActionBar();
         addcustomer = findViewById(R.id.addcustomer);
         showcustomer = findViewById(R.id.showcustomers);
         viewpending = findViewById(R.id.pending);
@@ -130,4 +135,5 @@ public class Dashboard extends AppCompatActivity
         }
         return true;
     }
+
 }

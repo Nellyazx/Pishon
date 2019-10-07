@@ -1,5 +1,7 @@
 package alien.com.category;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -18,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,9 +37,12 @@ import alien.com.viewcustomers.UpdateUserInfo;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>
 {
-    public Context context;
+    ProgressDialog progressDialog;
+
+    //public Context context;
     public String categoryName;
     public List<Category> categoryInfo;
+    Context context;
     public CategoryAdapter(Context context, List<Category>categoryInfo)
     {
         this.context = context;
@@ -53,9 +59,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder categoryViewHolder, final int position)
     {
-        final Context context = categoryViewHolder.itemView.getContext();
+        //final Context context = categoryViewHolder.itemView.getContext();
         categoryViewHolder.categoryName.setText(categoryInfo.get(position).getCategoryName());
         //getImageUsingGlide
+        String path = ApiService.imgUrl+categoryInfo.get(position).getId()+".jpg";
+        Glide.with(context).load(path).into(categoryViewHolder.categoryImage);
         categoryViewHolder.editCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -70,35 +78,42 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             public void onClick(View view)
             {
                categoryName = categoryInfo.get(position).getCategoryName();
-               deleteCategory();
+                progressDialog = ProgressDialog.show(context, "", "Deleting Category..", false, false);
+
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiService.DELETE_CATEGORY, new Response.Listener<String>() {
+
+                    @Override
+
+                    public void onResponse(String response)
+                    {
+                        progressDialog.dismiss();
+                        categoryInfo.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, categoryInfo.size());
+                        Toast.makeText(context, " Success "+response, Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(context, " Error "+error, Toast.LENGTH_SHORT).show();
+                    }
+                }){
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("categoryname", categoryName);
+                        return params;
+                    }
+                };
+                MySingleTone.getInstance(context).addToRequestQueue(stringRequest);
+
             }
         });
 
     }
-    public void deleteCategory()
-    {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, ApiService.DELETE_CATEGORY, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response)
-            {
-                Toast.makeText(context, " Success "+response, Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, " Error "+error, Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("categoryname", categoryName);
-                return params;
-            }
-        };
-        MySingleTone.getInstance(context).addToRequestQueue(stringRequest);
 
-    }
     @Override
     public int getItemCount()
     {
@@ -109,7 +124,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         categoryInfo.clear();
         notifyDataSetChanged();
     }
-    public static class CategoryViewHolder extends RecyclerView.ViewHolder
+    public class CategoryViewHolder extends RecyclerView.ViewHolder
     {
         public ImageView categoryImage;
         public TextView categoryName;
@@ -119,7 +134,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         {
             super(itemView);
             categoryImage = itemView.findViewById(R.id.categoryImage);
-            categoryName = itemView.findViewById(R.id.categoryImage);
+            categoryName = itemView.findViewById(R.id.categoryName);
             editCategory = itemView.findViewById(R.id.editcategory);
             deleteCategory = itemView.findViewById(R.id.deletecategory);
         }
